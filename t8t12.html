@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 id="abc"></h1>
+    <h1 id="abcd"></h1>
+    <table cellpadding="10" cellspacing="2" border="1" style="margin: 20px;">
+        <th id="1"></th>
+        <th id="2"></th>
+        <th id="3"></th>
+        <tr id="11">
+            <td id="111"></td>
+            <td id="112"></td>
+            <td id="113"></td>
+        </tr>
+        <tr id="12">
+            <td id="114"></td>
+            <td id="115"></td>
+            <td id="116"></td>
+        </tr>
+    </table>
+    <script>
+        let ab = {"dob":"2020-12-12"};
+        document.writeln('<button id="btn">Show Indian Date</button>');
+        document.writeln('<div id="d"></div>');
+
+        document.getElementById('btn').onclick = function(){
+            let nd = new Date(ab.dob);
+            let dd = nd.getDate();
+            let mm = nd.getMonth() + 1;
+            let yyyy = nd.getFullYear();
+            document.getElementById('d').innerText = dd + '-' + mm + '-' + yyyy;
+        }
+        const student = [
+
+        {
+
+        name: "ABC", height: 5.7
+
+        },
+
+        {
+
+        name: "PQR", height: 6.0
+
+        },
+
+        {
+
+        name: "XYZ", height: 6.2
+
+        }
+
+        ]
+
+        abc = student.sort((a, b) => b.height - a.height);
+        for( i of abc){
+            console.log(i.name , i.height)
+        }
+
+        const a = {
+
+        "A" : "LJU",
+
+        "B" : ["CSE", "IT" , "CE"],
+
+        "C" : [
+
+        {
+
+        "D" : "Hi",
+
+        "E" : ['are', 4, {'F' : ['semester', 'We']} ]
+
+        }
+
+        ],
+
+        "G" : {
+
+        "H" : "students",
+
+        "I" : ["of","!"]
+
+        },
+
+        "J" : [{"K" :"Python", "L":"branch"},"FSD-2"]
+
+        }
+        const sent= `${a.C[0].D} ${a.G.I[1]} ${a.C[0].E[2].F[1]} ${a.C[0].E[0]} ${a.G.H} ${a.G.I[0]} ${a.C[0].E[2].F[0]} ${a.C[0].E[1]} ${a.J[0].L} ${a.G.I[0]} ${a.B[0]}`
+        document.getElementById("abc").innerText=sent
+        const a1 = {
+            "Name": "Ramesh",
+            "Subects": ["Maths", "Scence", "chemistry"],
+            "Grade": { "Type": "marks", "Total": [88, 90, 99, 87] },
+            "Range": { "opt": "100", "type": ["secure", "subject", "class"] },
+            "achive": [
+                { "Rank": "rank", "place": [1, 2, 3] }, 
+                { "Ordinalindicator": "st" }, 
+                "12"
+            ],
+            "joints": ['outof', 'got', 'and']
+        };
+
+        const output = `${a1.Name} ${a1.joints[1]} ${a1.Grade.Total[2]} ${a1.joints[0]} ${a1.Range.opt} ${a1.Grade.Type} ${a1.joints[2]} ${a1.Range.type[0]} ${a1.achive[0].place[0]}${a1.achive[1].Ordinalindicator} ${a1.achive[0].Rank}.`;
+        console.log(output);
+        document.getElementById("abcd").innerText = output;
+
+        const sub = {
+
+        FSD: [
+
+            { Topic: "HTML", course: "Beginner", content: ["tags","table","form"] },
+
+            { Topic: "CSS", course: "Beginner", content: ["tags","table","form"] }
+
+        ]
+
+        };
+        h=1
+        r=11
+        c=111
+        for( let i of sub.FSD){
+            
+            for(let j in i ){
+                if(h<=3){
+                    document.getElementById(String(h)).innerText=j
+                }
+                document.getElementById(String(c)).innerText= i[j]
+                c+=1
+                h+=1
+            }
+        }
+    </script>
+    
+</body>
+</html>
