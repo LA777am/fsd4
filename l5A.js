@@ -1,0 +1,16 @@
+expr =require("express")
+app= expr()
+cp= require("cookie-parser")
+app.use(cp)
+app.use (expr.static("./",{index:"l5.html"}))
+app.use(expr.urlencoded({extended:true}))
+app.post("/next",(req,res)=>{
+    res.cookie("fname", req.body.fname)
+    res.cookie("password", req.body.password)
+    res.cookie("gmial", req.body.gmail, {maxAge:10000})
+    res.redirect('/data')
+})
+app.get('/data',(req,res)=>{
+    res.send(`welcome ${req.cookie.fname} ${req.cookie.password}`)  
+})
+app.listen(5006)
