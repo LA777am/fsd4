@@ -6,7 +6,7 @@ export default function ProductCard(props) {
             </div>
             <div className="product-info">
                 <h2>{props.name}</h2>
-                <h3>₹ {props.price}</h3>
+                <h3>$ {props.price}</h3>
                 <p>{props.details}</p>
             </div>
         </div>

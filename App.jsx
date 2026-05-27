@@ -1,10 +1,18 @@
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
-import ProductList from './components/ProductList'
+import Navbar from './components/Navbar'
+import MainR from './routes/MainR'
+
 function App() {
   return (
-    <>
-      <ProductList></ProductList>
-    </>
+    <BrowserRouter>
+      <div className="theme-container">
+        <Navbar />
+        <main className="main-content">
+          <MainR />
+        </main>
+      </div>
+    </BrowserRouter>
   )
 }
 

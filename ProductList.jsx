@@ -38,6 +38,14 @@ const products = [
     price: 45000,
     details: "Intel i7 Gaming CPU",
     image: '/cpu.jpg'
+  },
+
+  {
+    id: 6,
+    name: "Pendrive",
+    price: 600,
+    details: "64GB High Speed USB 3.2 Pendrive",
+    image: '/pendrive.jpg'
   }
 ]
 
