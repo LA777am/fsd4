@@ -1,0 +1,147 @@
+//task :1
+// 1) Find name of all students having age>5
+db.student.find({ age: { $gt: 5 } }, { name: 1, _id: 0 })
+
+// 2) Increase the standard for all students by 1.
+db.student.updateMany({}, { $inc: { standard: 1 } })
+
+// 3) Arrange all the records in descending order of age.
+db.student.find().sort({ age: -1 })
+
+// 4) Show the name of student who is the oldest student among all students.
+db.student.find({}, { name: 1, _id: 0 }).sort({ age: -1 }).limit(1)
+
+// 5) Delete the record of the student if standard is 12.
+db.student.deleteMany({ standard: 12 })
+
+
+
+//task-2
+// 1) Display price and brand of product which are of mobile cat.
+db.product.find({ cat: "mobile" }, { price: 1, brand: 1, _id: 0 })
+
+// 2) Increase price of each Samsung products by 1000.
+db.product.updateMany({ brand: "samsung" }, { $inc: { price: 1000 } })
+
+// 3) Update all vivo product by adding field quantity and add random value
+db.product.updateMany({ brand: "vivo" }, { $set: { quantity: 5 } })
+
+// 4) Display price of products which are of vivo or oppo brand.
+db.product.find({ brand: { $in: ["vivo", "oppo"] } }, { price: 1, _id: 0 })
+
+// 5) Display brand and cat of products which are less than 80000 and greater than or equal to 30000.
+db.product.find({ price: { $gte: 30000, $lt: 80000 } }, { brand: 1, cat: 1, _id: 0 })
+
+
+
+//task-3
+// (1) Update name=”JJJ” and age=40, where age=20 occurs. Insert new document, if record is not found.
+db.student.updateOne({ age: 20 }, { $set: { name: "JJJ", age: 40 } }, { upsert: true })
+
+// (2) To retrieve age and name fields of documents having names “YYY” & “SSS”. Don’t project _id field.
+db.student.find({ name: { $in: ["YYY", "SSS"] } }, { name: 1, age: 1, _id: 0 })
+// Initialization: Create collection and insert data
+db.employees.insertMany([
+  {_id: 1, name: "Eric", age: 30, position: "Full Stack Developer", salary: 60000},
+  {_id: 2, name: "Erica", age: 35, position: "Intern", salary: 8000},
+  {_id: 3, name: "Erical", age: 40, position: "UX/UI Designer", salary: 56000},
+  {_id: 4, name: "treric7", age: 37, position: "Team Leader", salary: 85000},
+  {_id: 5, name: "Eliza", age: 25, position: "Software Developer", salary: 45000},
+  {_id: 6, name: "Trian", age: 29, position: "Data Scientist", salary: 75000},
+  {_id: 7, name: "Elizan", age: 25, position: "Full Stack Developer", salary: 49000}
+])
+
+
+
+//task-4
+// Initialization: Create collection and insert data
+db.employees.insertMany([
+  {_id: 1, name: "Eric", age: 30, position: "Full Stack Developer", salary: 60000},
+  {_id: 2, name: "Erica", age: 35, position: "Intern", salary: 8000},
+  {_id: 3, name: "Erical", age: 40, position: "UX/UI Designer", salary: 56000},
+  {_id: 4, name: "treric7", age: 37, position: "Team Leader", salary: 85000},
+  {_id: 5, name: "Eliza", age: 25, position: "Software Developer", salary: 45000},
+  {_id: 6, name: "Trian", age: 29, position: "Data Scientist", salary: 75000},
+  {_id: 7, name: "Elizan", age: 25, position: "Full Stack Developer", salary: 49000}
+])
+
+// 1) Find All Documents
+db.employees.find({})
+
+// 2) Find Documents by Position “Full Stack Developer”
+db.employees.find({ position: "Full Stack Developer" })
+
+// 3) Retrieve name of employees whose age is greater than or equal to 25 and less than or equal to 40
+db.employees.find({ age: { $gte: 25, $lte: 40 } }, { name: 1, _id: 0 })
+
+// 4) Retrieve name of the employee with the highest salary
+db.employees.find({}, { name: 1, _id: 0 }).sort({ salary: -1 }).limit(1)
+
+// 5) Retrieve employees with a salary greater than 50000
+db.employees.find({ salary: { $gt: 50000 } })
+
+// 6) Retrieve employees' names and positions, excluding the "_id" field
+db.employees.find({}, { name: 1, position: 1, _id: 0 })
+
+// 7) Count the number of employees who have salary greater than 50000
+db.employees.countDocuments({ salary: { $gt: 50000 } })
+
+// 8) Retrieve employees who are either "Software Developer" or "Full Stack Developer" and are below 30 years
+db.employees.find({ position: { $in: ["Software Developer", "Full Stack Developer"] }, age: { $lt: 30 } })
+
+// 9) Increase the salary of an employee who has salary less than 50000 by 10%
+db.employees.updateMany({ salary: { $lt: 40000 } }, [ { $set: { salary: { $multiply: ["$salary", 1.1] } } } ])
+
+// 10) Delete all employees who are older than 50
+db.employees.deleteMany({ age: { $gt: 50 } })
+
+// 11) Give a 5% salary raise to all "Data Scientist"
+db.employees.updateMany({ position: "Data Scientist" }, [ { $set: { salary: { $multiply: ["$salary", 1.05] } } } ])
+
+// 12) Find documents where name like “%an”
+db.employees.find({ name: /an$/ })
+
+// 13) Find documents where name like “Eri--” (Case Insensitive) (e.g., "Eri" followed by exactly two characters)
+db.employees.find({ name: /^Eri..$/i })
+
+// 14) Find documents where name like “%ric%”
+db.employees.find({ name: /ric/ })
+
+// 15) Find documents where name contains only 4 or 5 letters
+db.employees.find({ name: /^([a-zA-Z]{4}|[a-zA-Z]{5})$/ })
+
+// 16) Find documents where name must end with digit
+db.employees.find({ name: /\d$/ })
+
+
+
+
+//sql-nosql
+
+
+//task-1
+// (1) alter table people add joiningDate datetime
+db.people.updateMany({}, { $set: { joiningDate: new Date() } });
+
+// (2) alter table people drop column joiningDate
+db.people.updateMany({}, { $unset: { joiningDate: "" } });
+
+// (3) select age,name from people where status="PH"
+db.people.find({ status: "PH" }, { age: 1, name: 1, _id: 0 });
+
+// (4) select * from people where status!="PH"
+db.people.find({ status: { $ne: "PH" } });
+
+// (5) select name from people order by age desc
+db.people.find({}, { name: 1, _id: 0 }).sort({ age: -1 });
+
+
+//task-2 
+//(1) update employee set name="TTT" where age not in {12,33,44,55}
+1)db.emp.updateMany({age: {$nin:[12,33,44,55]}}, {$set:{name:''TTT}})
+
+//(2) select count(*) from employee where age<>23
+2)db.emp.find({age:{$not:{$eq:23}}})
+
+//(3) update employee set age=age+10
+3)db.emp.updateMany({}, { $inc : {age:10}})
