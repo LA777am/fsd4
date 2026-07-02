@@ -1,0 +1,107 @@
+1: Simple Index
+Create an index on the age field and retrieve all students whose age is 20. Verify the execution statistics.
+db.dt.find({Age:20}).explain("executionStats)
+
+2: Compound Index
+Drop the existing index. Create a compound index on age and name. Retrieve the student whose age is 20 and name is "XYZ". Verify the execution statistics.
+db.dt.dropIndex("Age_1")
+db.dt.createeIndex({Name:1, age:-1})
+db.dt.find({$and:[{Age:20}, {Name:"XYZ"}]})
+
+3:Using the same compound index, retrieve all students whose name is "ABC". Verify the execution statistics.
+db.dt.find({Name:"ABC"})
+
+4: Partial Index
+Drop the existing compound index. Create a partial index on the marks field for students having marks greater than 80. Retrieve all students whose marks are greater than 80 and verify the execution statistics
+db.dt.createIndex({marks:1}, {partialFilterExpression:{marks:{$gt:80}}}).explain("executionStats)
+
+5:Using the same partial index, retrieve all students whose marks are greater than 70. Verify the execution statistics.
+db.dt.find({marks:{$gt:70}}).explain("executionStats)
+
+Task 2:
+
+Consider a collection student having documents like this:
+
+[
+
+{_id:123433,name: "DDD",age:32},
+
+{_id:123434,name: "BBB",age:20},
+
+{_id:123435,name: "AAA",age:10},
+
+]
+
+Task:2
+
+(1) Create an index & fire a command to retrieve a document having age>15 and name is
+"BBB". Stats must return values nReturned=1, docExamined=1, stage="IXSCAN". Perform required indexing.
+db.stud.createIndex({Age:1}).explain("executionStats")
+
+(2) Create an index on subset of a collection having age>30. Also write a command to get a stats "IXSCAN" for age>30.
+db.users.createIndex({ age: 1 },{ partialFilterExpression: {age:{$gt:30}}})
+
+
+Mongo_special Task:1 
+
+Task1
+Section A: CRUD Operations (10 Marks)
+Insert a new football player into the collection.
+
+Display all player records.
+db.fb.find({})
+
+Find the player whose name is Lionel Messi.
+db.fb.find({name:"Lionel Messi})
+Display all players from England.
+db.fb.find({country:"England"})
+
+Display players whose totalGoal is greater than 80.
+db.fb.find({totalGoal:{$gt:80}})
+
+Update the club of Harry Kane to Manchester United using $set.
+db.fb.updateOne({name:"Harry Cane"}, {$set:{club:"Manchester United"}})
+
+Increase the goal2025 of Kylian Mbappe by 5 using $inc.
+db.fb.updateOne({name:"Kylian Mbappe"}, {$inc:{goal2025:5}})
+
+Remove the state field of Neymar Jr using $unset.
+db.fb.update({name:"Neymar jr"}, {$unset:{state:""}})
+
+Rename the field totalGoal to careerGoal using $rename.
+db.fb.updateMany({}, {$rename:"totalGoal": "careerGoal"})
+
+Delete all players whose country is Portugal.
+db.fb.deleteMany({country:"Portugal"})
+
+
+Section B: Update Operators (10 Marks)
+Multiply goal2024 of Mohamed Salah by 2 using $mul.
+db.fb.updateOne({name:"Mohamed Salah"}, {$mul: {goal2024:2}})
+
+Set the country of Joao Felix to Spain.
+db.fb.updateOne({name:"Joao Felix"}, {$set:{country:"Spain"}})
+
+Increase goal2023 by 10 for all players from Brazil.
+db.fb.updateMany({country:"Brazil"}, {$inc:{goal2023:5}})
+
+Remove the club field from Pedri.
+db.fb.update({name:"Pedri"}, {$unset:{club:""}})
+
+Rename goal2025 to currentYearGoal.
+db.fb.updateMany({} ,{$rename: {"goal2025":"currentYearGoals"}})
+
+Replace the complete document of Luka Modric.
+db.fb.update({name:"Luca Modric"}, {$set:{country:"India", curretYearGoal:23, club:"MU"}})
+
+Update multiple players from England and set club as England FC.
+db.fb.updateMany({country:"England"}, {$set:{club:"England PC"}})
+
+Increase goal2022 by 2 for every player.
+db.fb.updateMany({},{$inc:{goal2022:2}})
+
+Decrease goal2025 by 3 for Cristiano Ronaldo.
+db.fb.updateOne({name:"Cristiano Ronaldo"}, {$inc:{goal2025:-3}})
+
+Delete one player named Gavi.
+db.fb.deleteOne({name:"Gavi"})
